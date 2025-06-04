@@ -14,6 +14,8 @@ turn = "O"
 def set_image(event):
   # Initialize variables "turn" and "cell"
   global turn
+  global cells
+  # print(cells[(0, 0)].token)
 
   cell = event.widget
 
@@ -24,13 +26,14 @@ def set_image(event):
   if turn == "O":
     cell.config(image=pic_o)
     cell.token = "O"
+    isWon(cell)
     turn = "X"
-    print(cell.token)
+    # print(cell.token)
   else:
     cell.config(image=pic_x)
     cell.token = "X"
     turn = "O"
-    print(cell.token)
+    # print(cell.token)
 
 # Cell class
 class Cell(tk.Label):
@@ -43,6 +46,23 @@ class Cell(tk.Label):
 
     self.config(image=self.image) 
 
+def isWon(cell):
+  global cells
+  token = cell.token
+
+  info = cell.grid_info()
+  row = info["row"]
+  col = info["column"]
+
+  # Check row
+  for i in range(3):
+    key = (row, i)
+    if cells[key].token != token:
+      break
+  else:
+    print(token + " Won!!!")
+    return
+  
 
 
 cells = {}
