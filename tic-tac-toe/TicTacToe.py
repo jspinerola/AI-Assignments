@@ -32,6 +32,7 @@ def set_image(event):
   else:
     cell.config(image=pic_x)
     cell.token = "X"
+    isWon(cell)
     turn = "O"
     # print(cell.token)
 
@@ -63,6 +64,34 @@ def isWon(cell):
     print(token + " Won!!!")
     return
   
+  # Check col
+  for i in range(3):
+    key = (i, col)
+    if cells[key].token != token:
+      break
+  else:
+    print(token + " Won!!!")
+    return
+  
+  # Check Diagonal
+  if col == row:
+    for i in range(3):
+      key = (i, i)
+      if cells[key].token != token:
+        break
+    else:
+      print(token + " won!")
+      return
+
+  # Check Antidiagnoal
+  if col + row == 2:
+    for i in range(3):
+      key = (i, 2 - i)
+      if cells[key].token != token:
+        break
+    else: 
+      print(token + " won!")
+      return
 
 
 cells = {}
